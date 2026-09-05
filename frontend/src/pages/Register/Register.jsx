@@ -1,8 +1,10 @@
 import { useState } from "react";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import API from "../../services/api";
 import "./Register.css";
 import { Link } from "react-router-dom";
 const Register = () => {
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         name: "",
@@ -23,8 +25,8 @@ const Register = () => {
 
         try {
 
-            const res = await axios.post(
-                "http://localhost:5000/api/auth/register",
+            const res = await API.post(
+                "/auth/register",
                 formData
             );
 
