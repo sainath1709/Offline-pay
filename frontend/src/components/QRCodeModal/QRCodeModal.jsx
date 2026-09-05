@@ -91,7 +91,7 @@ const QRCodeModal = ({ open, voucher, onClose }) => {
       setTimeLeft(60);
 
       // Deduct locally just for UI reflection (won't persist on refresh until sync)
-      voucher.remainingValue -= Number(amount);
+      // voucher.remainingValue -= Number(amount); // REMOVED: As requested, do not deduct until accepted/synced.
 
       // Log it locally for the sender's history instantly
       const senderQueueStr = localStorage.getItem("offlineSentTransactions") || "[]";
