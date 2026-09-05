@@ -8,6 +8,7 @@ const qrRoutes = require("./routes/qrRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
 const transactionRoutes = require("./routes/transactionRoutes");
 const aiRoutes = require("./routes/aiRoutes");
+const analyticsRoutes = require("./routes/analyticsRoutes");
 const app = express();
 
 app.use(cors());
@@ -28,4 +29,5 @@ app.use("/api/qr", qrRoutes);
 app.use("/api/payment", paymentRoutes);
 app.use("/api/transactions", transactionRoutes);
 app.use("/api/ai", aiRoutes);
+app.use("/api/analytics", analyticsRoutes);
 module.exports = app;
