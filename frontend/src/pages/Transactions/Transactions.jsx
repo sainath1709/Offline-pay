@@ -22,7 +22,7 @@ const Transactions = () => {
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user") || "{}");
     setUserId(user?.id);
-    fetchTransactions();
+    fetchTransactions(user?.id);
     checkPendingOffline();
   }, []);
 
@@ -44,7 +44,7 @@ const Transactions = () => {
     fetchTransactions();
   };
 
-  const fetchTransactions = async () => {
+  const fetchTransactions = async (currentUserId = userId) => {
     try {
       setLoading(true);
       const res = await API.get("/transactions");
@@ -87,7 +87,7 @@ const Transactions = () => {
           amount: q.amount,
           status: "PENDING_SENT",
           createdAt: q.timestamp || Date.now(),
-          sender: userId, // Sent by us
+          sender: currentUserId, // Sent by us
         }));
         
         allLocalTxs = [...allLocalTxs, ...sentTxs];
