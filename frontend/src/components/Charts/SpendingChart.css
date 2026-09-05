@@ -1,0 +1,44 @@
+.chart-card {
+
+    background: #111827;
+    color:white;
+    padding:25px;
+    border-radius:15px;
+    margin-top:25px;
+
+}
+
+
+.chart-placeholder {
+
+    height:200px;
+    display:flex;
+    align-items:end;
+    gap:25px;
+}
+
+
+.bar {
+
+    width:40px;
+    background:#38bdf8;
+    border-radius:8px 8px 0 0;
+
+}
+
+
+.one{
+    height:80px;
+}
+
+.two{
+    height:140px;
+}
+
+.three{
+    height:110px;
+}
+
+.four{
+    height:170px;
+}
