@@ -73,8 +73,12 @@ const Transactions = () => {
       const sentStr = localStorage.getItem("offlineSentTransactions");
       if (sentStr) {
         const sentQueue = JSON.parse(sentStr);
-        // Filter out any that have already been synced (exist in apiTx)
-        const unsyncedSent = sentQueue.filter(q => !apiTx.some(t => t.transactionId === q.transactionId));
+        // Filter out any that have already been synced (exist in apiTx) or have expired (older than 60s)
+        const unsyncedSent = sentQueue.filter(q => {
+          const isSynced = apiTx.some(t => t.transactionId === q.transactionId);
+          const isExpired = (Date.now() - (q.timestamp || Date.now())) > 60000; // 60 seconds
+          return !isSynced && !isExpired;
+        });
         
         const sentTxs = unsyncedSent.map(q => ({
           _id: "local_sent_" + q.transactionId,
@@ -88,7 +92,7 @@ const Transactions = () => {
         
         allLocalTxs = [...allLocalTxs, ...sentTxs];
         
-        // Cleanup synced ones from localStorage
+        // Cleanup synced/expired ones from localStorage
         if (unsyncedSent.length !== sentQueue.length) {
             localStorage.setItem("offlineSentTransactions", JSON.stringify(unsyncedSent));
         }
