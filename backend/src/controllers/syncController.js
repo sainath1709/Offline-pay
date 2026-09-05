@@ -1,6 +1,8 @@
 const Voucher = require("../models/Voucher");
 const Transaction = require("../models/Transaction");
 const Wallet = require("../models/Wallet");
+const User = require("../models/User");
+const { sendEmailReceipt } = require("../services/emailService");
 
 /**
  * Handles batch syncing of offline transactions from a merchant.
@@ -164,6 +166,27 @@ const syncTransactions = async (req, res) => {
                 if (senderWallet) {
                     senderWallet.lastSyncedAt = new Date();
                     await senderWallet.save();
+                }
+
+                // 8. Send Email Receipt
+                const senderUser = await User.findById(transaction.sender);
+                if (senderUser && senderUser.email) {
+                    const statusText = finalStatus === "COMPLETED" ? "Successful" : (finalStatus === "REJECTED" ? "Rejected" : "Pending Review");
+                    const emailBody = `
+                        <div style="font-family: Arial, sans-serif; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
+                            <h2 style="color: #4CAF50;">OfflinePay Receipt</h2>
+                            <p>Hello <strong>${senderUser.name}</strong>,</p>
+                            <p>Your offline transaction has been synced with the network.</p>
+                            <hr />
+                            <p><strong>Amount:</strong> ₹${transaction.amount}</p>
+                            <p><strong>Status:</strong> ${statusText}</p>
+                            <p><strong>Transaction ID:</strong> ${transaction.transactionId}</p>
+                            <hr />
+                            <p style="font-size: 12px; color: #888;">This is an automated message from OfflinePay.</p>
+                        </div>
+                    `;
+                    // Send asynchronously (no await) so it doesn't block the sync loop
+                    sendEmailReceipt(senderUser.email, `OfflinePay Receipt: ₹${transaction.amount}`, emailBody);
                 }
 
                 successCount++;

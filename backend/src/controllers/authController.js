@@ -4,21 +4,23 @@ const jwt = require("jsonwebtoken");
 const Wallet = require("../models/Wallet");
 const registerUser = async (req, res) => {
     try {
-        const { name, phone, password } = req.body;
+        const { name, email, phone, password } = req.body;
 
-        if (!name || !phone || !password) {
+        if (!name || !email || !phone || !password) {
             return res.status(400).json({
                 success: false,
                 message: "All fields are required"
             });
         }
 
-        const existingUser = await User.findOne({ phone });
+        const existingUser = await User.findOne({ 
+            $or: [{ phone }, { email }] 
+        });
 
         if (existingUser) {
             return res.status(400).json({
                 success: false,
-                message: "User already exists"
+                message: "User with that phone or email already exists"
             });
         }
 
@@ -26,6 +28,7 @@ const registerUser = async (req, res) => {
 
         const user = await User.create({
             name,
+            email,
             phone,
             password: hashedPassword
         });

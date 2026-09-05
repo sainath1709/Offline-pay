@@ -6,10 +6,10 @@ const Register = () => {
 
     const [formData, setFormData] = useState({
         name: "",
+        email: "",
         phone: "",
         password: ""
     });
-
 
     const handleChange = (e) => {
         setFormData({
@@ -17,7 +17,6 @@ const Register = () => {
             [e.target.name]: e.target.value
         });
     };
-
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -36,11 +35,11 @@ const Register = () => {
 
         } catch(error){
 
-            console.log(error.response.data);
+            console.log(error.response?.data || error);
+            alert(error.response?.data?.message || "Registration failed");
 
         }
     };
-
 
     return (
         <div className="register-container">
@@ -49,11 +48,19 @@ const Register = () => {
 
                 <h2>Create Account</h2>
 
-
                 <input
                     type="text"
                     name="name"
                     placeholder="Name"
+                    value={formData.name}
+                    onChange={handleChange}
+                />
+
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Email Address"
+                    value={formData.email}
                     onChange={handleChange}
                 />
 
