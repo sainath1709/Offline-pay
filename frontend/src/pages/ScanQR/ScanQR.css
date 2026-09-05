@@ -1,0 +1,137 @@
+.scan-page {
+  min-height: 100vh;
+  color: white;
+  padding: 30px;
+}
+
+.scan-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.scanner-container {
+  max-width: 500px;
+  margin: 0 auto;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #161b33;
+  padding: 15px;
+  border: 2px solid #6d28d9;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+}
+
+.scanner-container video {
+  width: 100% !important;
+  border-radius: 18px;
+}
+
+.scanner-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #a78bfa;
+  margin-bottom: 10px;
+  padding: 4px 0;
+}
+
+.scanner-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #7c3aed;
+  animation: pulse 1.2s infinite;
+  flex-shrink: 0;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+}
+
+.camera-error {
+  color: #f87171;
+  text-align: center;
+  padding: 30px 20px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.payment-card {
+  max-width: 520px;
+  margin: 40px auto;
+  background: #161b33;
+  border-radius: 24px;
+  padding: 30px;
+  border: 1px solid #30363d;
+}
+
+.payment-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 25px;
+}
+
+.payment-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  font-size: 16px;
+  border-bottom: 1px solid #1e2640;
+  padding-bottom: 12px;
+}
+
+.payment-label {
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+.payment-value {
+  color: #4ade80;
+  font-weight: bold;
+}
+
+.success-msg {
+  color: #4ade80;
+  font-weight: 600;
+  margin: 16px 0 8px;
+  font-size: 15px;
+}
+
+.accept-btn {
+  width: 100%;
+  padding: 14px;
+  background: #16a34a;
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 25px;
+  transition: background 0.2s;
+}
+
+.accept-btn:hover {
+  background: #15803d;
+}
+
+.cancel-btn {
+  width: 100%;
+  padding: 14px;
+  background: #dc2626;
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 12px;
+  transition: background 0.2s;
+}
+
+.cancel-btn:hover {
+  background: #b91c1c;
+}
