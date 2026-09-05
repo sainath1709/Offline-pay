@@ -65,7 +65,7 @@ const QRCodeModal = ({ open, voucher, onClose }) => {
       const transactionId = crypto.randomUUID();
       const qrNonce = crypto.randomUUID().replace(/-/g, "").substring(0, 32);
       const timestamp = Date.now();
-      const expiresAt = new Date(timestamp + 60 * 1000).toISOString();
+      const expiresAt = new Date(timestamp + 30 * 1000).toISOString();
 
       // 2. Prepare message for signing: voucherId + owner + amount + qrNonce
       const messageToSign = voucher.voucherId + voucher.owner + amount + qrNonce;
@@ -88,7 +88,7 @@ const QRCodeModal = ({ open, voucher, onClose }) => {
       };
 
       setQrPayload(JSON.stringify(payload));
-      setTimeLeft(60);
+      setTimeLeft(30);
 
       // Deduct locally just for UI reflection (won't persist on refresh until sync)
       // voucher.remainingValue -= Number(amount); // REMOVED: As requested, do not deduct until accepted/synced.
